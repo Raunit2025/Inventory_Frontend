@@ -13,7 +13,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Hardcoded login check (you can replace this with real auth)
     if (form.username === 'admin' && form.password === 'admin') {
       navigate('/dashboard'); // change this route as per your app
     } else {
