@@ -23,6 +23,19 @@ const Dashboard = () => {
         { name: 'Winter Wool Sweater', sku: 'WW-SW-GRY-L-004', brand: 'WarmWear', size: 'L', color: 'Gray', qty: 25, price: 129.99, location: 'Rack D1', status: 'Good' },
         { name: 'Athletic Running Shorts', sku: 'SM-SH-BLK-M-005', brand: 'SportMax', size: 'M', color: 'Black', qty: 3, price: 34.99, location: 'Rack E1', status: 'Low Stock' },
     ]);
+    const [showAddModal, setShowAddModal] = useState(false);
+    const [newItem, setNewItem] = useState({
+        name: '',
+        sku: '',
+        brand: '',
+        size: '',
+        color: '',
+        qty: 0,
+        price: 0,
+        location: '',
+        status: 'Good',
+    });
+
 
     const [dateTime, setDateTime] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState('');
@@ -139,10 +152,6 @@ const Dashboard = () => {
                                 />
                             </div>
 
-
-
-
-
                             <button
                                 onClick={() => setDarkMode(prev => !prev)}
                                 className={`p-2 text-xl shadow rounded-full transition-colors duration-500 
@@ -214,7 +223,13 @@ const Dashboard = () => {
                                     <option>All Items</option>
                                 </select>
 
-                                <button className="bg-emerald-500 text-white px-4 py-1 rounded-md">+ Add Item</button>
+                                <button
+                                    onClick={() => setShowAddModal(true)}
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-1 rounded-md"
+                                >
+                                    + Add Item
+                                </button>
+
                             </div>
                         </div>
 
@@ -242,7 +257,9 @@ const Dashboard = () => {
                                                         name="name"
                                                         value={editForm.name}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white placeholder-gray-300' : 'bg-white text-gray-900 placeholder-gray-500'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                     <div className="text-xs text-gray-500 dark:text-gray-400">{item.sku}</div>
                                                 </td>
@@ -251,7 +268,9 @@ const Dashboard = () => {
                                                         name="brand"
                                                         value={editForm.brand}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2">
@@ -259,13 +278,17 @@ const Dashboard = () => {
                                                         name="size"
                                                         value={editForm.size}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                     <input
                                                         name="color"
                                                         value={editForm.color}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded mt-1 dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded mt-1 transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2">
@@ -275,7 +298,9 @@ const Dashboard = () => {
                                                         min="0"
                                                         value={editForm.qty}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2">
@@ -286,7 +311,9 @@ const Dashboard = () => {
                                                         step="0.01"
                                                         value={editForm.price}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2">
@@ -294,7 +321,9 @@ const Dashboard = () => {
                                                         name="location"
                                                         value={editForm.location}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-2 py-1 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2">
@@ -302,27 +331,30 @@ const Dashboard = () => {
                                                         name="status"
                                                         value={editForm.status}
                                                         onChange={handleEditChange}
-                                                        className="w-full border px-2 py-1 rounded dark:bg-gray-700 dark:text-white"
+                                                        className={`w-full border px-3 rounded transition-colors duration-500 
+                          bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} 
+                          focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                                     >
                                                         <option value="Good">Good</option>
                                                         <option value="Low Stock">Low Stock</option>
                                                         <option value="Out of Stock">Out of Stock</option>
                                                     </select>
                                                 </td>
-                                                <td className="px-4 py-2 space-x-2">
+                                                <td className="px-4 py-2 space-x-1 whitespace-nowrap">
                                                     <button
                                                         onClick={handleEditSave}
-                                                        className="text-green-600 hover:underline text-sm"
+                                                        className="bg-green-500 text-white text-xs px-2 py-1 rounded hover:bg-green-600 transition-colors duration-300"
                                                     >
                                                         Save
                                                     </button>
                                                     <button
                                                         onClick={handleEditCancel}
-                                                        className="text-gray-600 dark:text-gray-300 hover:underline text-sm"
+                                                        className="bg-gray-400 text-white text-xs px-2 py-1 rounded hover:bg-gray-500 transition-colors duration-300"
                                                     >
                                                         Cancel
                                                     </button>
                                                 </td>
+
                                             </>
                                         ) : (
                                             <>
@@ -332,8 +364,50 @@ const Dashboard = () => {
                                                 </td>
                                                 <td className="px-4 py-2">{item.brand}</td>
                                                 <td className="px-4 py-2">Size: {item.size}<br />{item.color}</td>
-                                                <td className="px-4 py-2">{item.qty}</td>
-                                                <td className="px-4 py-2">${item.price.toFixed(2)}</td>
+                                                <td className="px-4 py-2">
+                                                    <div className={`flex items-center justify-between w-24 rounded-md overflow-hidden border transition-colors duration-500
+    ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}>
+
+                                                        <button
+                                                            onClick={() =>
+                                                                setItems(prev =>
+                                                                    prev.map(i =>
+                                                                        i.sku === item.sku && i.qty > 0 ? { ...i, qty: i.qty - 1 } : i
+                                                                    )
+                                                                )
+                                                            }
+                                                            className={`w-8 h-8 text-lg font-bold cursor-pointer transition-colors duration-300 
+        ${darkMode ? 'text-white hover:bg-gray-600' : 'text-gray-700 hover:bg-gray-200'}`}
+                                                            title="Decrease"
+                                                        >
+                                                            −
+                                                        </button>
+
+                                                        <span className={`text-sm font-medium px-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                                                            {item.qty}
+                                                        </span>
+
+                                                        <button
+                                                            onClick={() =>
+                                                                setItems(prev =>
+                                                                    prev.map(i =>
+                                                                        i.sku === item.sku ? { ...i, qty: i.qty + 1 } : i
+                                                                    )
+                                                                )
+                                                            }
+                                                            className={`w-8 h-8 text-lg font-bold cursor-pointer transition-colors duration-300 
+        ${darkMode ? 'text-white hover:bg-gray-600' : 'text-gray-700 hover:bg-gray-200'}`}
+                                                            title="Increase"
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+
+
+
+                                                <td className="px-4 py-2">₹{item.price.toFixed(2)}</td>
                                                 <td className="px-4 py-2">{item.location}</td>
                                                 <td className="px-4 py-2">
                                                     <span className={`px-2 py-1 text-xs rounded-full ${item.status === 'Good'
@@ -349,7 +423,7 @@ const Dashboard = () => {
                                                     <div className="relative group inline-block">
                                                         <button
                                                             onClick={() => handleEditClick(item)}
-                                                            className="text-blue-600 hover:text-blue-800 cursor-pointer"
+                                                            className="text-blue-700 hover:text-blue-800 cursor-pointer"
                                                         >
                                                             <FaEdit />
                                                         </button>
@@ -360,7 +434,7 @@ const Dashboard = () => {
                                                     <div className="relative group inline-block">
                                                         <button
                                                             onClick={() => handleDelete(item.sku)}
-                                                            className="text-red-600 hover:text-red-800 cursor-pointer"
+                                                            className="text-red-300 hover:text-red-800 cursor-pointer"
                                                         >
                                                             <FaTrash />
                                                         </button>
@@ -379,6 +453,89 @@ const Dashboard = () => {
 
                         </table>
                     </div>
+                    {showAddModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                            <div className={`w-full max-w-md p-6 rounded-lg shadow-lg transition-colors duration-500 
+      ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
+
+                                <h2 className="text-xl font-bold mb-4">Add New Item</h2>
+
+                                <div className="space-y-3">
+                                    {['name', 'sku', 'brand', 'size', 'color', 'location'].map((field) => (
+                                        <input
+                                            key={field}
+                                            type="text"
+                                            name={field}
+                                            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                                            value={newItem[field]}
+                                            onChange={(e) => setNewItem({ ...newItem, [field]: e.target.value })}
+                                            className={`w-full px-3 py-2 rounded-md border transition-colors duration-300 
+              ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+                                        />
+                                    ))}
+
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="number"
+                                            name="qty"
+                                            placeholder="Quantity"
+                                            min={0}
+                                            value={newItem.qty}
+                                            onChange={(e) => setNewItem({ ...newItem, qty: parseInt(e.target.value) || 0 })}
+                                            className={`w-1/2 px-3 py-2 rounded-md border transition-colors duration-300 
+              ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+                                        />
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            placeholder="Price"
+                                            min={0}
+                                            step="0.01"
+                                            value={newItem.price}
+                                            onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}
+                                            className={`w-1/2 px-3 py-2 rounded-md border transition-colors duration-300 
+              ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+                                        />
+                                    </div>
+
+                                    <select
+                                        name="status"
+                                        value={newItem.status}
+                                        onChange={(e) => setNewItem({ ...newItem, status: e.target.value })}
+                                        className={`w-full px-3 py-2 rounded-md border transition-colors duration-300 
+            ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+                                    >
+                                        <option>Good</option>
+                                        <option>Low Stock</option>
+                                        <option>Out of Stock</option>
+                                    </select>
+                                </div>
+
+                                <div className="flex justify-end mt-4 gap-2">
+                                    <button
+                                        onClick={() => setShowAddModal(false)}
+                                        className="px-4 py-2 rounded-md text-sm font-semibold bg-gray-400 hover:bg-gray-500 text-white"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            if (!newItem.name || !newItem.sku) {
+                                                alert('Name and SKU are required');
+                                                return;
+                                            }
+                                            setItems([...items, newItem]);
+                                            setShowAddModal(false);
+                                            setNewItem({ name: '', sku: '', brand: '', size: '', color: '', qty: 0, price: 0, location: '', status: 'Good' });
+                                        }}
+                                        className="px-4 py-2 rounded-md text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-white"
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                 </main>
             </div>
