@@ -7,12 +7,11 @@ const InventoryTable = ({
   setItems,
   filteredItems,
   editingItem,
-  setEditingItem,
   editForm,
-  setEditForm,
   handleEditChange,
   handleEditSave,
   handleEditCancel,
+  handleEditClick,
   handleDelete,
   setShowAddModal,
   darkMode,
@@ -122,12 +121,15 @@ const InventoryTable = ({
                       name="status"
                       value={editForm.status}
                       onChange={handleEditChange}
-                      className={`w-full border px-3 rounded transition-colors duration-500 bg-transparent ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-gray-900'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                      className={`w-full border px-3 py-2 rounded transition-colors duration-500 
+    ${darkMode ? 'bg-gray-700 text-white border-black-600' : 'bg-white text-gray-900 border-black-600'} 
+    focus:outline-none focus:ring-2 focus:ring-blue-500`}
                     >
-                      <option value="Good">Good</option>
-                      <option value="Low Stock">Low Stock</option>
-                      <option value="Out of Stock">Out of Stock</option>
+                      <option className={darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'} value="Good">Good</option>
+                      <option className={darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'} value="Low Stock">Low Stock</option>
+                      <option className={darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'} value="Out of Stock">Out of Stock</option>
                     </select>
+
                   </td>
                   <td className="px-4 py-2 space-x-1 whitespace-nowrap">
                     <button
@@ -152,24 +154,52 @@ const InventoryTable = ({
                   </td>
                   <td className="px-4 py-2">{item.brand}</td>
                   <td className="px-4 py-2">Size: {item.size}<br />{item.color}</td>
-                  <td className="px-4 py-2">{item.qty}</td>
+                  <td className="px-4 py-2">
+                    <div className={`flex items-center justify-between w-24 rounded-md overflow-hidden border transition-colors duration-500 ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-300'}`}>
+                      <button
+                        onClick={() => setItems(prev => prev.map(i => i.sku === item.sku && i.qty > 0 ? { ...i, qty: i.qty - 1 } : i))}
+                        className={`w-8 h-8 text-lg font-bold cursor-pointer transition-colors duration-300 ${darkMode ? 'text-white hover:bg-gray-600' : 'text-gray-700 hover:bg-gray-200'}`}
+                        title="Decrease"
+                      >−</button>
+                      <span className={`text-sm font-medium px-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>{item.qty}</span>
+                      <button
+                        onClick={() => setItems(prev => prev.map(i => i.sku === item.sku ? { ...i, qty: i.qty + 1 } : i))}
+                        className={`w-8 h-8 text-lg font-bold cursor-pointer transition-colors duration-300 ${darkMode ? 'text-white hover:bg-gray-600' : 'text-gray-700 hover:bg-gray-200'}`}
+                        title="Increase"
+                      >+</button>
+                    </div>
+                  </td>
                   <td className="px-4 py-2">₹{item.price.toFixed(2)}</td>
                   <td className="px-4 py-2">{item.location}</td>
                   <td className="px-4 py-2">
-                    <span className={`px-2 py-1 text-xs rounded-full ${item.status === 'Good' ? 'bg-green-100 text-green-700 dark:bg-green-200 dark:text-green-900' : item.status === 'Low Stock' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-200 dark:text-yellow-900' : 'bg-red-100 text-red-700 dark:bg-red-200 dark:text-red-900'}`}>{item.status}</span>
+                    <span className={`px-2 py-1 text-xs rounded-full ${item.status === 'Good'
+                      ? 'bg-green-100 text-green-700 dark:bg-green-200 dark:text-green-900'
+                      : item.status === 'Low Stock'
+                        ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-200 dark:text-yellow-900'
+                        : 'bg-red-100 text-red-700 dark:bg-red-200 dark:text-red-900'}`}>{item.status}</span>
                   </td>
                   <td className="px-4 py-2 space-x-3 text-lg">
                     <div className="relative group inline-block">
-                      <button onClick={() => setEditingItem(item.sku)} className="text-blue-700 hover:text-blue-800 cursor-pointer">
+                      <button
+                        onClick={() => handleEditClick(item)}
+                        className="text-blue-700 hover:text-blue-800 cursor-pointer"
+                      >
                         <FaEdit />
                       </button>
-                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition transform bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">Edit</div>
+                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition transform bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                        Edit
+                      </div>
                     </div>
                     <div className="relative group inline-block">
-                      <button onClick={() => handleDelete(item.sku)} className="text-red-300 hover:text-red-800 cursor-pointer">
+                      <button
+                        onClick={() => handleDelete(item.sku)}
+                        className="text-red-300 hover:text-red-800 cursor-pointer"
+                      >
                         <FaTrash />
                       </button>
-                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition transform bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">Delete</div>
+                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition transform bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+                        Delete
+                      </div>
                     </div>
                   </td>
                 </>

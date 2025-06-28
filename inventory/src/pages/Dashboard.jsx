@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import StatsCards from './components/StatsCards';
-import InventoryTable from './components/InventoryTable';
-import AddItemModal from './components/AddItemModal';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
+import StatsCards from '../components/StatsCards';
+import InventoryTable from '../components/InventoryTable';
+import AddItemModal from '../components/AddItemModal';
 import {
     FaBox,
     FaChartBar,
@@ -121,7 +121,6 @@ const Dashboard = () => {
                     <StatsCards items={items} darkMode={darkMode} />
 
 
-                    {/* Inventory Table */}
                     <InventoryTable
                         items={items}
                         setItems={setItems}
@@ -133,6 +132,7 @@ const Dashboard = () => {
                         handleEditChange={handleEditChange}
                         handleEditSave={handleEditSave}
                         handleEditCancel={handleEditCancel}
+                        handleEditClick={handleEditClick}  
                         handleDelete={handleDelete}
                         setShowAddModal={setShowAddModal}
                         darkMode={darkMode}

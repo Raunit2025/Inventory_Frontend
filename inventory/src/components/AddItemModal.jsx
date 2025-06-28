@@ -2,67 +2,86 @@ import React from 'react';
 
 const AddItemModal = ({ darkMode, newItem, setNewItem, setItems, setShowAddModal, items }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className={`w-full max-w-md p-6 rounded-lg shadow-lg transition-colors duration-500 
+    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className={`w-full max-w-xs p-4 rounded-lg shadow-lg transition-colors duration-500 
         ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}`}>
 
-        <h2 className="text-xl font-bold mb-4">Add New Item</h2>
+        <h2 className="text-lg font-bold mb-3 text-center">Add New Item</h2>
 
         <div className="space-y-3">
-          {["name", "sku", "brand", "size", "color", "location"].map((field) => (
-            <input
-              key={field}
-              type="text"
-              name={field}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              value={newItem[field]}
-              onChange={(e) => setNewItem({ ...newItem, [field]: e.target.value })}
-              className={`w-full px-3 py-2 rounded-md border transition-colors duration-300 
-                ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
-            />
+          {[
+            { name: 'name', label: 'Item Name' },
+            { name: 'sku', label: 'SKU Code' },
+            { name: 'brand', label: 'Brand' },
+            { name: 'size', label: 'Size' },
+            { name: 'color', label: 'Color' },
+            { name: 'location', label: 'Location' }
+          ].map(({ name, label }) => (
+            <div key={name}>
+              <label htmlFor={name} className="block text-xs font-medium mb-1">{label}</label>
+              <input
+                id={name}
+                type="text"
+                name={name}
+                value={newItem[name]}
+                onChange={(e) => setNewItem({ ...newItem, [name]: e.target.value })}
+                className={`w-full px-3 py-1.5 rounded-md border text-sm transition-colors duration-300 
+                  ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+              />
+            </div>
           ))}
 
           <div className="flex gap-2">
-            <input
-              type="number"
-              name="qty"
-              placeholder="Quantity"
-              min={0}
-              value={newItem.qty}
-              onChange={(e) => setNewItem({ ...newItem, qty: parseInt(e.target.value) || 0 })}
-              className={`w-1/2 px-3 py-2 rounded-md border transition-colors duration-300 
-                ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
-            />
-            <input
-              type="number"
-              name="price"
-              placeholder="Price"
-              min={0}
-              step="0.01"
-              value={newItem.price}
-              onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}
-              className={`w-1/2 px-3 py-2 rounded-md border transition-colors duration-300 
-                ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
-            />
+            <div className="w-1/2">
+              <label htmlFor="qty" className="block text-xs font-medium mb-1">Qty</label>
+              <input
+                id="qty"
+                type="number"
+                name="qty"
+                min={0}
+                value={newItem.qty}
+                onChange={(e) => setNewItem({ ...newItem, qty: parseInt(e.target.value) || 0 })}
+                className={`w-full px-3 py-1.5 rounded-md border text-sm transition-colors duration-300 
+                  ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+              />
+            </div>
+            <div className="w-1/2">
+              <label htmlFor="price" className="block text-xs font-medium mb-1">Price (₹)</label>
+              <input
+                id="price"
+                type="number"
+                name="price"
+                min={0}
+                step="0.01"
+                value={newItem.price}
+                onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}
+                className={`w-full px-3 py-1.5 rounded-md border text-sm transition-colors duration-300 
+                  ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+              />
+            </div>
           </div>
 
-          <select
-            name="status"
-            value={newItem.status}
-            onChange={(e) => setNewItem({ ...newItem, status: e.target.value })}
-            className={`w-full px-3 py-2 rounded-md border transition-colors duration-300 
-              ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
-          >
-            <option>Good</option>
-            <option>Low Stock</option>
-            <option>Out of Stock</option>
-          </select>
+          <div>
+            <label htmlFor="status" className="block text-xs font-medium mb-1">Status</label>
+            <select
+              id="status"
+              name="status"
+              value={newItem.status}
+              onChange={(e) => setNewItem({ ...newItem, status: e.target.value })}
+              className={`w-full px-3 py-1.5 rounded-md border text-sm transition-colors duration-300 
+                ${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-gray-900 border-gray-300'}`}
+            >
+              <option>Good</option>
+              <option>Low Stock</option>
+              <option>Out of Stock</option>
+            </select>
+          </div>
         </div>
 
         <div className="flex justify-end mt-4 gap-2">
           <button
             onClick={() => setShowAddModal(false)}
-            className="px-4 py-2 rounded-md text-sm font-semibold bg-gray-400 hover:bg-gray-500 text-white"
+            className="px-3 py-1.5 rounded-md text-sm font-medium bg-gray-400 hover:bg-gray-500 text-white"
           >
             Cancel
           </button>
@@ -86,7 +105,7 @@ const AddItemModal = ({ darkMode, newItem, setNewItem, setItems, setShowAddModal
                 status: 'Good'
               });
             }}
-            className="px-4 py-2 rounded-md text-sm font-semibold bg-emerald-500 hover:bg-emerald-600 text-white"
+            className="px-3 py-1.5 rounded-md text-sm font-medium bg-emerald-500 hover:bg-emerald-600 text-white"
           >
             Add
           </button>
