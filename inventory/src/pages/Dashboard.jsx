@@ -4,21 +4,6 @@ import Header from '../components/Header';
 import StatsCards from '../components/StatsCards';
 import InventoryTable from '../components/InventoryTable';
 import AddItemModal from '../components/AddItemModal';
-import {
-    FaBox,
-    FaChartBar,
-    FaUserCog,
-    FaCogs,
-    FaTags,
-    FaTshirt,
-    FaShoppingCart,
-    FaBell,
-    FaSearch,
-    FaMoon,
-    FaSun,
-    FaEdit,
-    FaTrash,
-} from 'react-icons/fa';
 
 const Dashboard = () => {
     const [items, setItems] = useState([
@@ -28,24 +13,17 @@ const Dashboard = () => {
         { name: 'Winter Wool Sweater', sku: 'WW-SW-GRY-L-004', brand: 'WarmWear', size: 'L', color: 'Gray', qty: 25, price: 129.99, location: 'Rack D1', status: 'Good' },
         { name: 'Athletic Running Shorts', sku: 'SM-SH-BLK-M-005', brand: 'SportMax', size: 'M', color: 'Black', qty: 3, price: 34.99, location: 'Rack E1', status: 'Low Stock' },
     ]);
+
     const [showAddModal, setShowAddModal] = useState(false);
     const [newItem, setNewItem] = useState({
-        name: '',
-        sku: '',
-        brand: '',
-        size: '',
-        color: '',
-        qty: 0,
-        price: 0,
-        location: '',
-        status: 'Good',
+        name: '', sku: '', brand: '', size: '', color: '', qty: 0, price: 0, location: '', status: 'Good',
     });
-
 
     const [dateTime, setDateTime] = useState(new Date());
     const [searchTerm, setSearchTerm] = useState('');
     const [editingItem, setEditingItem] = useState(null);
     const [editForm, setEditForm] = useState({});
+
     const [darkMode, setDarkMode] = useState(() => {
         const stored = localStorage.getItem('darkMode');
         return stored ? JSON.parse(stored) : window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -53,11 +31,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const root = window.document.documentElement;
-        if (darkMode) {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
+        root.classList.toggle('dark', darkMode);
         localStorage.setItem('darkMode', JSON.stringify(darkMode));
     }, [darkMode]);
 
@@ -91,8 +65,7 @@ const Dashboard = () => {
     const handleEditCancel = () => setEditingItem(null);
 
     const handleDelete = (sku) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this item?");
-        if (confirmDelete) {
+        if (window.confirm("Are you sure you want to delete this item?")) {
             setItems(items.filter(item => item.sku !== sku));
         }
     };
@@ -107,7 +80,6 @@ const Dashboard = () => {
         <div className={`min-h-screen transition-colors duration-500 ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'}`}>
             <div className="flex">
                 <Sidebar darkMode={darkMode} />
-
                 <main className="flex-1 p-6">
                     <Header
                         darkMode={darkMode}
@@ -117,9 +89,7 @@ const Dashboard = () => {
                         dateTime={dateTime}
                     />
 
-
                     <StatsCards items={items} darkMode={darkMode} />
-
 
                     <InventoryTable
                         items={items}
@@ -132,7 +102,7 @@ const Dashboard = () => {
                         handleEditChange={handleEditChange}
                         handleEditSave={handleEditSave}
                         handleEditCancel={handleEditCancel}
-                        handleEditClick={handleEditClick}  
+                        handleEditClick={handleEditClick}
                         handleDelete={handleDelete}
                         setShowAddModal={setShowAddModal}
                         darkMode={darkMode}
@@ -148,7 +118,6 @@ const Dashboard = () => {
                             items={items}
                         />
                     )}
-
                 </main>
             </div>
         </div>

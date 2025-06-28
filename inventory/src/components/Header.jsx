@@ -1,10 +1,9 @@
-// components/Header.jsx
 import React from 'react';
 import { FaSearch, FaBell, FaMoon, FaSun } from 'react-icons/fa';
 
 const Header = ({ darkMode, setDarkMode, searchTerm, setSearchTerm, dateTime }) => {
   return (
-    <div className="flex justify-between items-center mb-6">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
       <div>
         <h1 className="text-2xl font-bold">Inventory Management</h1>
         <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -20,9 +19,9 @@ const Header = ({ darkMode, setDarkMode, searchTerm, setSearchTerm, dateTime }) 
         </p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         <div
-          className={`relative w-64 rounded-md shadow transition-colors duration-500 ${
+          className={`relative w-full md:w-64 rounded-md shadow transition-colors duration-500 ${
             darkMode ? 'bg-gray-700' : 'bg-white'
           }`}
         >

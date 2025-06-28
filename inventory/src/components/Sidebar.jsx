@@ -1,3 +1,4 @@
+// components/Sidebar.jsx
 import React from 'react';
 import {
   FaBox,
@@ -11,7 +12,7 @@ import {
 
 const Sidebar = ({ darkMode }) => {
   return (
-    <aside className={`w-64 shadow-md p-4 space-y-6 transition-colors duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'}`}>
+    <aside className={`w-64 sm:w-60 p-4 shadow-md space-y-6 transition-colors duration-500 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'} hidden md:block`}>
       <h2 className="text-2xl font-bold">🛍 ClothingStore</h2>
       <nav className="flex flex-col gap-2">
         <a href="#" className="flex items-center gap-2 p-2 rounded-md text-white bg-emerald-500">
