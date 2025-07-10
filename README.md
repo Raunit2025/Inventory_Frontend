@@ -74,7 +74,7 @@ This project is open source and available under the MIT License.
 👤 Author
 Raunit Raj
 👨‍🎓 B.Tech CSE @ LPU
-📫 raunit@example.com
+📫 raunit2336@gmail.com
 
 Feel free to fork this repo, improve features, and submit pull requests!
 
