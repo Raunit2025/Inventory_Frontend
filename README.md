@@ -49,7 +49,7 @@ git clone https://github.com/your-username/inventory-management.git
 cd inventory-management
 npm install
 npm run dev
-
+```
 🧪 Usage
 Click + Add Item to add a new product
 
