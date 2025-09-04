@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     if (form.username === 'admin' && form.password === 'admin') {
-      navigate('/dashboard'); // change this route as per your app
+      navigate('/dashboard'); 
     } else {
       setError('Invalid credentials');
     }
